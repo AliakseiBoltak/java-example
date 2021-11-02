@@ -1,4 +1,3 @@
-
 public class LogMessage {
     private String date;
     private String time;

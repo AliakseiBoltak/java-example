@@ -12,10 +12,11 @@ public class Main {
 
     static Logger logger = Logger.getLogger(Main.class);
     static String fileName = "runtime.log";
+    static List<LogMessage> logMessages = new ArrayList<>();
+    static List<LogMessage> filteredlLogMessages = new ArrayList<>();
 
     public static void main(String args[]) throws IOException {
         logger.info("Start");
-        List<LogMessage> logMessages = new ArrayList<>();
         List<String> allLines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
 
         for (String line : allLines) {
@@ -24,21 +25,20 @@ public class Main {
         }
 
         //Java 7 style
-        List<LogMessage> filteredMessages = new ArrayList<>();
-        for (LogMessage logMessage : filteredMessages){
-            if (logMessage.getOperation().equals("Stop")){
-                filteredMessages.add(logMessage);
+        for (LogMessage logMessage : logMessages) {
+            if (logMessage.getOperation().equals("Stop")) {
+                filteredlLogMessages.add(logMessage);
             }
         }
-        for (LogMessage logMessage :filteredMessages){
-            System.out.println(logMessage);
+        for (LogMessage filteredLogMessage :filteredlLogMessages){
+            System.out.println(filteredLogMessage);
         }
 
         //Java 8 style
-        filteredMessages = logMessages.stream().filter(logMessage ->
+        filteredlLogMessages = logMessages.stream().filter(logMessage ->
                 logMessage.getOperation().equals("Stop")).collect(Collectors.toList());
 
-        filteredMessages.forEach(System.out::println);
+        filteredlLogMessages.forEach(System.out::println);
 
         logger.info("Stop");
     }
