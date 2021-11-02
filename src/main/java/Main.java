@@ -37,7 +37,6 @@ public class Main {
         //Java 8 style
         filteredlLogMessages = logMessages.stream().filter(logMessage ->
                 logMessage.getOperation().equals("Stop")).collect(Collectors.toList());
-
         filteredlLogMessages.forEach(System.out::println);
 
         logger.info("Stop");
