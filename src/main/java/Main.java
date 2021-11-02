@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -24,9 +25,13 @@ public class Main {
             logMessages.add(new LogMessage(record[0], record[1], record[2], record[3]));
         }
 
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter operation name:");
+        String operation = scan.nextLine();
+
         //Java 7 style
         for (LogMessage logMessage : logMessages) {
-            if (logMessage.getOperation().equals("Stop")) {
+            if (logMessage.getOperation().equalsIgnoreCase(operation)) {
                 filteredlLogMessages.add(logMessage);
             }
         }
@@ -36,7 +41,7 @@ public class Main {
 
         //Java 8 style
         filteredlLogMessages = logMessages.stream().filter(logMessage ->
-                logMessage.getOperation().equals("Stop")).collect(Collectors.toList());
+                logMessage.getOperation().equalsIgnoreCase(operation)).collect(Collectors.toList());
         filteredlLogMessages.forEach(System.out::println);
 
         logger.info("Stop");
